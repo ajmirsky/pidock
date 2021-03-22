@@ -30,6 +30,9 @@ do_umount
 set -e
 set -x
 
+# file needs to exist for losetup to mount
+touch ${CUSTOM_IM_NAME}
+
 losetup -a | grep "${CUSTOM_IMG_NAME}" | awk -F: '{ print $1 }' | \
     xargs -r sudo losetup -d
 sudo losetup -fP ${CUSTOM_IMG_NAME}
